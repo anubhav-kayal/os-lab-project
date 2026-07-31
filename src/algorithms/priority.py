@@ -2,9 +2,8 @@
 
 NOTE ON STARVATION:
 Priority scheduling can starve low-priority processes if high-priority work
-keeps arriving. Aging (gradually boosting waiting processes) is a common fix,
-but is intentionally out of scope for this mini-project — we only acknowledge
-the issue here.
+keeps arriving. Aging (gradually boosting waiting processes) is a common fix
+but is intentionally not implemented here — we only acknowledge the issue.
 """
 
 from __future__ import annotations
