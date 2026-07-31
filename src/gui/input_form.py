@@ -190,10 +190,14 @@ class InputForm(ttk.Frame):
         needs_priority = self.algorithm_var.get() in PRIORITY_ALGORITHMS
 
         for i, row in enumerate(self._rows, start=1):
+            arrival_raw = row["arrival"].get().strip()
+            burst_raw = row["burst"].get().strip()
+            if arrival_raw == "" or burst_raw == "":
+                raise ValueError(f"Row {i}: arrival and burst fields cannot be empty.")
             try:
                 pid = int(row["pid"].get().strip())
-                arrival = int(row["arrival"].get().strip())
-                burst = int(row["burst"].get().strip())
+                arrival = int(arrival_raw)
+                burst = int(burst_raw)
             except ValueError as exc:
                 raise ValueError(
                     f"Row {i}: PID, arrival, and burst must be integers."
@@ -243,6 +247,14 @@ class InputForm(ttk.Frame):
         return quantum
 
     def _handle_run(self) -> None:
+        """Validate form state and invoke the Run Simulation callback."""
+        if not self._rows:
+            messagebox.showwarning(
+                "No Processes",
+                "Add at least one process before running the simulation.",
+            )
+            self._refresh_run_state()
+            return
         try:
             processes = self.get_processes()
             quantum = self.get_quantum()
@@ -275,10 +287,9 @@ class InputForm(ttk.Frame):
             row["frame"].bind("<Button-1>", select)
 
     def _highlight_selection(self) -> None:
+        """Visually mark the selected row via Entry style when available."""
         for idx, row in enumerate(self._rows):
             style = "Selected.TFrame" if idx == self._selected_index else "TFrame"
-            # Fallback visual cue via relief on entries
-            relief = "solid" if idx == self._selected_index else "flat"
             for child in row["frame"].winfo_children():
                 if isinstance(child, ttk.Entry):
                     try:
@@ -287,9 +298,13 @@ class InputForm(ttk.Frame):
                         pass
 
     def _refresh_run_state(self) -> None:
+        """Disable Run when there are no process rows; update status text."""
         has_rows = bool(self._rows)
         self.run_btn.configure(state="normal" if has_rows else "disabled")
+        self.remove_btn.configure(state="normal" if has_rows else "disabled")
         if not has_rows:
-            self.status_var.set("Add at least one process to run a simulation.")
+            self.status_var.set(
+                "No processes — add at least one process to enable Run Simulation."
+            )
         else:
             self.status_var.set(f"{len(self._rows)} process(es) ready.")

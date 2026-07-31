@@ -19,5 +19,10 @@ Python 3.11+, Tkinter, matplotlib, pytest. No heavy frameworks.
 Lower pid wins; equal priority → arrival then pid.
 
 ## Session progress
-- Phases 0–6 complete (algorithms + metrics + unit tests).
-- Next: Phase 7 GUI input form — wait for user **continue**.
+- Phases 0–9 complete (core + GUI simulation + comparison).
+- Phase 10: edge cases, polish, full pytest.
+- Next after Phase 10: Phase 11 docs — wait for user **continue**.
+
+## Run GUI
+Prefer a Python build with Tk support, e.g.:
+`/Library/Frameworks/Python.framework/Versions/3.12/bin/python3 src/main.py`

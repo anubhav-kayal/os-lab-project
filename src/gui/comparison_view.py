@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import tkinter as tk
 from tkinter import ttk, messagebox
-from typing import Optional
+from typing import Callable, Optional
 
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.figure import Figure
@@ -136,10 +136,15 @@ class ComparisonView(ttk.Frame):
             row=2, column=0, sticky="w", pady=(6, 0)
         )
 
-        self._get_context = lambda: ([], None)
+        self._get_context: Callable[[], tuple[list[Process], Optional[int]]] = (
+            lambda: ([], None)
+        )
         self._clear_chart()
 
-    def bind_context(self, getter) -> None:
+    def bind_context(
+        self,
+        getter: Callable[[], tuple[list[Process], Optional[int]]],
+    ) -> None:
         """Bind a callback that returns ``(processes, round_robin_quantum)``."""
         self._get_context = getter
         self.compare_btn.configure(command=self.run_comparison)
