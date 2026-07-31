@@ -45,7 +45,7 @@
 - [x] Phase 1 — `c9e5904` on `main` + `phase-1-models`
 - [x] Phase 2
 - [x] Phase 3
-- [ ] Phase 4
+- [x] Phase 4
 - [ ] Phase 5
 - [ ] Phase 6
 - [ ] Phase 7
