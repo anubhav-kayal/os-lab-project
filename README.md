@@ -31,12 +31,9 @@ Drop demo captures into `screenshots/` and link them here:
 
 ## Requirements
 
-- Python **3.11+** with Tkinter support
+- Python **3.11+** with **Tkinter** (`_tkinter`)
 - `matplotlib`
 - `pytest` (for running tests)
-
-> On macOS, if `import tkinter` fails under a Homebrew/pyenv build, use a Framework Python that ships with Tcl/Tk, for example:
-> `/Library/Frameworks/Python.framework/Versions/3.12/bin/python3`
 
 ## Install
 
@@ -48,9 +45,21 @@ python3 -m pip install -r requirements.txt
 
 ## Run
 
+**Easiest on macOS** (auto-picks a Python that has Tk):
+
 ```bash
-python3 src/main.py
+chmod +x run.sh
+./run.sh
 ```
+
+Or call a Tk-enabled interpreter directly (recommended if `python3` is pyenv 3.14):
+
+```bash
+/Library/Frameworks/Python.framework/Versions/3.12/bin/python3 -m pip install -r requirements.txt
+/Library/Frameworks/Python.framework/Versions/3.12/bin/python3 src/main.py
+```
+
+If you see `No module named '_tkinter'`, your current `python3` (often pyenv/Homebrew) was built without Tcl/Tk. Tests will still pass; only the GUI needs another interpreter.
 
 1. Add processes (arrival time, burst time; priority when using Priority schedulers).
 2. Choose an algorithm (enable time quantum for Round Robin).
