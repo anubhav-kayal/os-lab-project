@@ -1,28 +1,25 @@
 # Agent Notes — CPU Scheduling Simulator
 
 ## Mission
-Build a CPU Scheduling Simulator with Gantt Charts following `plan.md`.
+Ship a polished CPU Scheduling Simulator with Gantt charts and comparison views.
 
 ## Stack
-Python 3.11+, Tkinter, matplotlib, pytest. No heavy frameworks.
+Python 3.11+, Tkinter, matplotlib, pytest.
 
-## Workflow
-- Feature branches per phase; merge to `main` after each phase commit.
-- Commit message: `Phase X: <short description>`.
-- GitHub MCP unavailable here → use `git push`.
-- Run `pytest tests/ -v` before commits once tests exist.
+## Conventions
+- Scheduler return shape: `(list[Process], timeline)` with `(pid|"IDLE", start, end)`.
+- Tie-break: lower pid; equal priority → arrival then pid.
+- Feature branches per phase; merge to `main`; commit message `Phase X: ...`.
 
-## Scheduler return shape
-`(list[Process], timeline)` where timeline entries are `(pid|"IDLE", start, end)`.
+## Status
+- Phases 0–12 complete on `main`.
+- Public README is product-style (no marks / lab framing).
+- Manual follow-ups live in `docs/checklist.md`.
 
-## Tie-breaking
-Lower pid wins; equal priority → arrival then pid.
-
-## Session progress
-- Phases 0–9 complete (core + GUI simulation + comparison).
-- Phase 10: edge cases, polish, full pytest.
-- Next after Phase 10: Phase 11 docs — wait for user **continue**.
-
-## Run GUI
-Prefer a Python build with Tk support, e.g.:
-`/Library/Frameworks/Python.framework/Versions/3.12/bin/python3 src/main.py`
+## Run
+```bash
+python3 -m pip install -r requirements.txt
+python3 src/main.py
+python3 -m pytest tests/ -v
+```
+On macOS without Tk in the active interpreter, use Framework Python 3.12+.
