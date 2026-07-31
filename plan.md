@@ -44,7 +44,7 @@
 - [x] Phase 0 — `d663e72` on `main` + `phase-0-scaffolding`
 - [x] Phase 1 — `c9e5904` on `main` + `phase-1-models`
 - [x] Phase 2
-- [ ] Phase 3
+- [x] Phase 3
 - [ ] Phase 4
 - [ ] Phase 5
 - [ ] Phase 6
